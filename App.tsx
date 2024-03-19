@@ -1,118 +1,104 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import * as React from 'react';
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StatusBar, Dimensions, View} from 'react-native';
+import {useEffect, useState} from 'react';
+import Trivia from './app/Trivia';
+import Intro from './app/Intro';
+import Colors from './app/Colors';
+import Fonts from './app/Fonts';
+import Confetti from './app/Confetti';
+import Progress from './app/Progress';
+import Gradient from './app/Gradient';
+import Ruler from './app/Ruler';
+import Question from './app/Question';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const questions = [
+  {
+    cover:
+      'https://cdn.discordapp.com/attachments/1133267481008545822/1216313709140377625/rnstudio_french_flag_in_movieNetflix_like_cover_minimalistic_bc39a414-3c03-4ca8-8bb8-101927b4b7fb.png?ex=65ffef6a&is=65ed7a6a&hm=86fb6e0c3daf1b258677b5c8c4cfc3a50d8002d429d995cecd9c9d513b2e77cc&',
+    answers: [
+      {
+        text: 'Simba',
+        correct: true,
+        probability: 43,
+      },
+      {
+        text: 'Mickey',
+        correct: false,
+        probability: 11,
+      },
+      {
+        text: 'Goofy',
+        correct: false,
+        probability: 24,
+      },
+      {
+        text: 'Donald',
+        correct: false,
+        probability: 22,
+      },
+    ],
+    question: `What is the name of the boy who befriends a lion in "The Lion King"?`,
+  },
+  {
+    cover: 'https://assets.playgen.io/temp/cover_1.png',
+    answers: [
+      {
+        text: 'Super strength',
+        correct: false,
+        probability: 11,
+      },
+      {
+        text: 'Super speed',
+        correct: false,
+        probability: 13,
+      },
+      {
+        text: 'Invisibility and force fields',
+        correct: true,
+        probability: 68,
+      },
+      {
+        text: 'Elasticity',
+        correct: false,
+        probability: 8,
+      },
+    ],
+    question: `In 'The Incredibles', what unique power does the daughter Violet have?`,
+  },
+];
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
+const App = () => {
+  const [isLandscape, setIsLandscape] = useState(
+    Dimensions.get('window').width > Dimensions.get('window').height,
   );
-}
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  const [currentQuestion, setCurrentQuestion] = useState(0);
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  useEffect(() => {
+    const updateLayout = () => {
+      setIsLandscape(
+        Dimensions.get('window').width > Dimensions.get('window').height,
+      );
+    };
+
+    Dimensions.addEventListener('change', updateLayout);
+  }, []);
+
+  const [currentScreen, setCurrentScreen] = React.useState('Intro');
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <StatusBar backgroundColor="#1f1f1d" barStyle="light-content" />
+      {currentScreen === 'Intro' && <Intro />}
+      {currentScreen === 'Trivia' && (
+        <Question
+          question={questions[currentQuestion]}
+          onAnswer={() => setCurrentQuestion(currentQuestion + 1)}
+        />
+      )}
+    </>
   );
-}
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+};
 
 export default App;
