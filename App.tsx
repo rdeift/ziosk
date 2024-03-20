@@ -1105,7 +1105,7 @@ const questions = [
         probability: 11,
       },
       {
-        text: 'Texan and Southwestern cuisine',
+        text: 'Texan and Southwestern',
         correct: true,
         probability: 43,
       },
@@ -1159,7 +1159,7 @@ const questions = [
         probability: 11,
       },
       {
-        text: 'With a dream sketched on a cocktail napkin',
+        text: 'With a dream sketched',
         correct: true,
         probability: 43,
       },
@@ -1385,11 +1385,6 @@ const App = () => {
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [currentScreen, setCurrentScreen] = React.useState('Intro');
 
-  const getRandomQuestions = (array: any, count: any) => {
-    const shuffled = array.sort(() => 0.5 - Math.random());
-    return shuffled;
-  };
-
   useEffect(() => {
     const updateLayout = () => {
       setIsLandscape(
@@ -1398,11 +1393,15 @@ const App = () => {
     };
 
     Dimensions.addEventListener('change', updateLayout);
-
-    // Select 10 random questions from the questions array
-    const randomQuestions = getRandomQuestions(questions, 10);
-    setSelectedQuestions(randomQuestions);
+    selectRandomQuestions();
   }, []);
+
+  const selectRandomQuestions = () => {
+    const shuffledQuestions: any = [...questions].sort(
+      () => 0.5 - Math.random(),
+    );
+    setSelectedQuestions(shuffledQuestions.slice(0, 10));
+  };
 
   return (
     <>
@@ -1436,6 +1435,7 @@ const App = () => {
             setCurrentQuestion(0);
             setCurrentScreen(screen);
             setAllPoints(0);
+            selectRandomQuestions();
           }}
         />
       )}

@@ -157,6 +157,10 @@ const Question = ({
     const sound = new Sound('click.mp3', Sound.MAIN_BUNDLE, error => {
       sound.play();
     });
+
+    new Sound('timer.mp3', Sound.MAIN_BUNDLE, error => {
+      sound.play();
+    });
     setSelectedAnswerIndex(index);
     setGameActive(false);
     setFinalScore(score);
@@ -178,7 +182,7 @@ const Question = ({
     for (let i = 0; i < question.answers.length; i++) {
       Animated.timing(progress[i], {
         toValue: question.answers[i].probability * 3,
-        duration: 900,
+        duration: 1200,
         useNativeDriver: false,
       }).start();
     }
@@ -203,7 +207,7 @@ const Question = ({
       setSelectedAnswerIndex(null);
       setScore(automatic ? 0 : 1000);
       onAnswer(isCorrect ? score : 0);
-    }, 4500);
+    }, 4000);
   }
 
   return (
@@ -306,7 +310,7 @@ const Question = ({
                     {answer.text}
                   </Text>
                   {selectedAnswerIndex !== null ? (
-                    <Text className="text-[#eaeaeb] font-bold text-[15px]">
+                    <Text className="text-[#eaeaeb] font-bold text-[15px] z-10">
                       {answer.probability}%
                     </Text>
                   ) : (
