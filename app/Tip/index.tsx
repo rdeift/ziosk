@@ -1,7 +1,15 @@
 import React, {useEffect, useRef} from 'react';
-import {View, Animated, ImageBackground} from 'react-native';
+import {
+  Text,
+  Image,
+  View,
+  TouchableOpacity,
+  Animated,
+  ImageBackground,
+} from 'react-native';
+import Sound from 'react-native-sound';
 
-const Points = ({onNext, points}: any) => {
+const Tip = ({onNext, currentTip, currentQuestion, totalQuestions}: any) => {
   const fadeAnim1 = useRef(new Animated.Value(0)).current;
   const fadeAnim2 = useRef(new Animated.Value(0)).current;
   const fadeAnim3 = useRef(new Animated.Value(0)).current;
@@ -31,20 +39,11 @@ const Points = ({onNext, points}: any) => {
       duration: 1100,
       useNativeDriver: true,
     }).start();
-
-    setTimeout(() => {
-      onNext();
-    }, 3000);
   }, []);
 
   return (
-    <ImageBackground
-      source={{
-        uri: 'https://assets.playgen.io/trivia_bg/ziosk/cover.jpeg',
-      }}
-      resizeMode="cover"
-      className="items-center justify-end flex-1 pb-4">
-      <View className="items-center justify-center flex-1 p-6 center">
+    <View className="items-center justify-center flex-1 pb-4 bg-[#000]">
+      <View className="items-center justify-center flex-1 max-w-lg p-6 center">
         <Animated.Image
           className="w-[200px] h-[180px]"
           source={{
@@ -64,7 +63,7 @@ const Points = ({onNext, points}: any) => {
         />
 
         <Animated.Text
-          className="text-xl z-[100] -mt-2   text-black font-cursive text-center"
+          className="text-3xl z-[100] mb-2   text-white font-cursive text-center"
           style={{
             opacity: fadeAnim2,
             transform: [
@@ -76,10 +75,10 @@ const Points = ({onNext, points}: any) => {
               },
             ],
           }}>
-          You scored
+          Did you know?
         </Animated.Text>
         <Animated.Text
-          className="text-4xl z-[100] font-heading tracking-tighter text-black  text-center"
+          className="text-lg z-[100] font-base tracking-tighter text-white  text-center"
           style={{
             opacity: fadeAnim2,
             transform: [
@@ -91,7 +90,7 @@ const Points = ({onNext, points}: any) => {
               },
             ],
           }}>
-          {points} points
+          {currentTip.text}
         </Animated.Text>
         <Animated.View
           style={{
@@ -104,10 +103,25 @@ const Points = ({onNext, points}: any) => {
                 }),
               },
             ],
-          }}></Animated.View>
+          }}>
+          <TouchableOpacity
+            onPress={() => {
+              onNext();
+              // const sound = new Sound('click.mp3', Sound.MAIN_BUNDLE, error => {
+              //   sound.play();
+              // });
+            }}
+            className="bg-[#ffcc02] rounded-[4px] mt-6 flex items-center justify-center border-2 border-[#111]">
+            <Text className="text-lg z-[100] tracking-tighter text-[#18181b] font-heading p-4 py-1 pt-2">
+              {currentQuestion === totalQuestions - 1
+                ? 'View Score'
+                : 'Next Question'}
+            </Text>
+          </TouchableOpacity>
+        </Animated.View>
       </View>
-    </ImageBackground>
+    </View>
   );
 };
 
-export default Points;
+export default Tip;

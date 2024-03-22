@@ -2,8 +2,28 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "assets/fonts/DMsans.ttf",
-      "sha1": "bd912858c0f8887c01a56b09e6b1ca1cf81418ee"
+      "path": "assets/fonts/NexaRustSans-Trial-Black2.ttf",
+      "sha1": "0beac29850a3f29f17daedd5dc1575573121a310"
+    },
+    {
+      "path": "assets/fonts/NexaRustScriptB-Trial-3.ttf",
+      "sha1": "dd27229fa818f4defd439f0991e9358131478b94"
+    },
+    {
+      "path": "assets/fonts/NexaRustScriptR-Trial-4.ttf",
+      "sha1": "881b78a613dddb74d7c290e8b4b06b0853c503c0"
+    },
+    {
+      "path": "assets/fonts/NexaRustSlab-Trial-Black3.ttf",
+      "sha1": "9abf2a65fd51e42a467d4395c72bb503c3a15ef2"
+    },
+    {
+      "path": "assets/fonts/SkolarSans.ttf",
+      "sha1": "627d8e11b4746655c7dbcbe8bcee391069161731"
+    },
+    {
+      "path": "assets/fonts/SkolarSansLatnCn-Me.otf",
+      "sha1": "843ba1bb9b7a35613fc5b44657b0b2dbff09b720"
     }
   ]
 }

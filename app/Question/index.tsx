@@ -118,49 +118,49 @@ const Question = ({
     }
   }, [gameActive, question]);
 
-  useEffect(() => {
-    if (counter === 12) {
-      // Select a wrong answer to remove when counter reaches 12
-      const wrongAnswers = question.answers.filter(
-        (answer: any, index: number) => !answer.correct,
-      );
-      if (wrongAnswers.length > 0) {
-        const randomIndex = Math.floor(Math.random() * wrongAnswers.length);
-        const wrongAnswerIndex = question.answers.findIndex(
-          (answer: any) => answer === wrongAnswers[randomIndex],
-        );
-        setWrongAnswerIndex1(wrongAnswerIndex);
-      }
-    }
+  // useEffect(() => {
+  //   if (counter === 12) {
+  //     // Select a wrong answer to remove when counter reaches 12
+  //     const wrongAnswers = question.answers.filter(
+  //       (answer: any, index: number) => !answer.correct,
+  //     );
+  //     if (wrongAnswers.length > 0) {
+  //       const randomIndex = Math.floor(Math.random() * wrongAnswers.length);
+  //       const wrongAnswerIndex = question.answers.findIndex(
+  //         (answer: any) => answer === wrongAnswers[randomIndex],
+  //       );
+  //       setWrongAnswerIndex1(wrongAnswerIndex);
+  //     }
+  //   }
 
-    if (counter === 7) {
-      // Select another wrong answer to remove when counter reaches 7
-      const wrongAnswers = question.answers.filter(
-        (answer: any, index: number) =>
-          !answer.correct && index !== wrongAnswerIndex1,
-      );
-      if (wrongAnswers.length > 0) {
-        const randomIndex = Math.floor(Math.random() * wrongAnswers.length);
-        const wrongAnswerIndex = question.answers.findIndex(
-          (answer: any) => answer === wrongAnswers[randomIndex],
-        );
-        setWrongAnswerIndex2(wrongAnswerIndex);
-      }
-    }
-  }, [counter]);
+  //   if (counter === 7) {
+  //     // Select another wrong answer to remove when counter reaches 7
+  //     const wrongAnswers = question.answers.filter(
+  //       (answer: any, index: number) =>
+  //         !answer.correct && index !== wrongAnswerIndex1,
+  //     );
+  //     if (wrongAnswers.length > 0) {
+  //       const randomIndex = Math.floor(Math.random() * wrongAnswers.length);
+  //       const wrongAnswerIndex = question.answers.findIndex(
+  //         (answer: any) => answer === wrongAnswers[randomIndex],
+  //       );
+  //       setWrongAnswerIndex2(wrongAnswerIndex);
+  //     }
+  //   }
+  // }, [counter]);
 
   function handleAnswerPress(
     answer: any,
     index: number,
     automatic: boolean = false,
   ) {
-    const sound = new Sound('click.mp3', Sound.MAIN_BUNDLE, error => {
-      sound.play();
-    });
+    // const sound = new Sound('click.mp3', Sound.MAIN_BUNDLE, error => {
+    //   sound.play();
+    // });
 
-    new Sound('timer.mp3', Sound.MAIN_BUNDLE, error => {
-      sound.play();
-    });
+    // new Sound('timer.mp3', Sound.MAIN_BUNDLE, error => {
+    //   sound.play();
+    // });
     setSelectedAnswerIndex(index);
     setGameActive(false);
     setFinalScore(score);
@@ -172,9 +172,9 @@ const Question = ({
     if (isCorrect) {
       setCorrectAnswers(correctAnswers + 1);
       confettiRef.current?.play(0);
-      const sound = new Sound('win.mp3', Sound.MAIN_BUNDLE, error => {
-        sound.play();
-      });
+      // const sound = new Sound('win.mp3', Sound.MAIN_BUNDLE, error => {
+      //   sound.play();
+      // });
     } else {
       setFinalScore(0);
     }
@@ -207,7 +207,7 @@ const Question = ({
       setSelectedAnswerIndex(null);
       setScore(automatic ? 0 : 1000);
       onAnswer(isCorrect ? score : 0);
-    }, 4000);
+    }, 3400);
   }
 
   return (
@@ -226,12 +226,16 @@ const Question = ({
           className="absolute top-0 left-0 right-0 object-top w-full h-full rounded-xl"
           resizeMode="cover"
         />
-        <Text className="absolute z-10 text-2xl font-black leading-6 tracking-tighter text-white left-4 bottom-10 font-heading">
-          {`Question ${currentQuestion + 1} / ${totalQuestions}`}
+
+        <Text className="absolute z-10 px-3 py-1 pb-1.5 rounded-[4px]  bg-[#ffcc02]  text-black left-4 bottom-20 font-base">
+          {question.category}
+        </Text>
+        <Text className="absolute z-10 text-2xl text-white left-4 bottom-10 font-cursive">
+          {`Question ${currentQuestion + 1} of ${totalQuestions}`}
         </Text>
         <View className="absolute z-10 flex flex-row items-center justify-between space-x-2 bottom-3 left-4">
           <Icon name="clock" size={16} color="#ffffff" />
-          <Text className="text-white">
+          <Text className="-mt-1 text-lg text-white font-base">
             {counter < 10 && counter > 0 ? `0${counter}` : counter}
           </Text>
           <Animated.View
@@ -239,13 +243,13 @@ const Question = ({
             style={{width: timer}}
           />
         </View>
-        {counter > 12 && (
+        {/* {counter > 12 && (
           <View className="absolute z-10 w-4 h-4 bg-[#ffcc02] rounded-full bottom-[14px] right-[140px]" />
         )}
         {counter > 7 && (
           <View className="absolute z-10 w-4 h-4 bg-[#ffcc02] rounded-full bottom-[14px] right-[180px]" />
-        )}
-        <Text className="absolute text-[#ffcc02] bottom-[10px] right-[10px] z-10 text-xl font-black">
+        )} */}
+        <Text className="absolute text-[#ffcc02] bottom-[14px] right-[10px] z-10 text-xl">
           {finalScore !== null ? finalScore : score}
         </Text>
         <LinearGradient
@@ -269,7 +273,8 @@ const Question = ({
           <TouchableOpacity onPress={() => onNavigate('Intro')}>
             <Icon name="arrow-left" size={20} color="#ffffff" />
           </TouchableOpacity>
-          <Text className="text-[#eaeaeb] font-bold text-[15px]">
+
+          <Text className=" z-[100] text-[#ffcc02]  font-heading mt-1 px-3 py-2">
             {allPoints?.toLocaleString()} points
           </Text>
           <Icon name="volume-x" size={20} color="#ffffff" />
@@ -280,7 +285,7 @@ const Question = ({
           style={{
             transform: [{translateY: slideUpAnim}],
           }}>
-          <Text className="text-xl font-black leading-6 tracking-tighter text-white font-heading">
+          <Text className="leading-5 text-white font-heading">
             {question.question}
           </Text>
           <View className="mt-4 space-y-4 md:px-4">
@@ -306,11 +311,11 @@ const Question = ({
                       ? {opacity: 0.2}
                       : {}
                   }>
-                  <Text className="text-[#eaeaeb] font-medium text-[15px] z-10">
+                  <Text className="text-[#eaeaeb] font-base z-10">
                     {answer.text}
                   </Text>
                   {selectedAnswerIndex !== null ? (
-                    <Text className="text-[#eaeaeb] font-bold text-[15px] z-10">
+                    <Text className="text-[#eaeaeb] text-[13px] z-10">
                       {answer.probability}%
                     </Text>
                   ) : (

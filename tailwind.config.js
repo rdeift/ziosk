@@ -12,7 +12,9 @@ module.exports = {
         secondary: '#eaeaeb',
       },
       fontFamily: {
-        heading: 'DMsans',
+        heading: 'NexaRustSans-Trial-Black2',
+        cursive: 'NexaRustScriptR-Trial-4',
+        base: 'SkolarSansLatnCn-Me',
       },
     },
   },

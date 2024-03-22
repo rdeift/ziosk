@@ -49,7 +49,12 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>DMsans.ttf</string>
+		<string>NexaRustSans-Trial-Black2.ttf</string>
+		<string>NexaRustScriptB-Trial-3.ttf</string>
+		<string>NexaRustScriptR-Trial-4.ttf</string>
+		<string>NexaRustSlab-Trial-Black3.ttf</string>
+		<string>SkolarSans.ttf</string>
+		<string>SkolarSansLatnCn-Me.otf</string>
 	</array>
 </dict>
 </plist>
